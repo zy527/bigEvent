@@ -130,16 +130,9 @@
         </div>
         <div class="right_con setfl">
             <div class="common_wrap">
-                <h3><i class="fa fa-bar-chart"></i> 一周热门排行</h3>
-                <ul class="content_list">
-                    <li><span class="first">1</span><a href="#">神奇的水滴摄影，泡泡中的世界泡泡中的世界</a></li>
-                    <li><span class="second">2</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><span class="third">3</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><span>4</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><span>5</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><span>6</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                    <li><span>7</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-                </ul>
+
+                <!-- 这里放内容 -->
+
             </div>
             <div class="common_wrap">
                 <h3><i class="fa fa-commenting-o"></i> 最新评论</h3>
@@ -205,6 +198,36 @@
         <p>电话：0755-****888 粤ICP备*******8号</p>
     </div>
 
+    <script src="./assets/js/jquery-1.12.4.min.js"></script>
+    <script src="./assets/js/template-web.js"></script>
+
+    <script id="tit" type="text/html">
+            <h3 class="article_title">{{$shuju.title}}</h3>
+            <div class="article_info">
+                发布于 {{shuju.addtime}}&nbsp;&nbsp;&nbsp;
+                分类: {{category}}&nbsp;&nbsp;&nbsp;
+                阅读: ({{shuju.click}})&nbsp;&nbsp;&nbsp;
+                评论: (0)
+            </div>
+            <div class="article_con">
+               {{@shuju.text}}
+            </div>
+        
+    </script>
+
+    <script>
+        var id = location.search;
+        $.get('./getArticleById' + id, function(res){
+            // console.log(res);
+            if (res.code === 200) {
+                var str = template('tit', {
+                shuju: res.data,
+                category: res.category.name
+            });
+            $('.breadcrumb').after(str);
+            }
+        } ,'json');
+    </script>
 </body>
 
 </html>
