@@ -64,6 +64,7 @@
 
                     <!-- 这里放热门推荐 -->
 
+
                 </ul>
             </div>
             <div class="common_wrap">
@@ -212,18 +213,18 @@
 
     <!-- 一周热门排行 -->
     <script id="hot" type="text/html">
-        {{each arr}}
-        {{if $index == 0}}
-        <span class='first'>
-        {{if $index == 1}}
-        <span class='second'>
-        {{if $index == 2}}
-        <span class='third'>  
-        {{else}}
-        <span>
-        {{/if}} 
+        {{each arr1}}
         <li>
-            <span>{{$value.id}}</span>
+            {{if $index == 0}}
+            <span class="first">
+            {{else if $index == 1}}
+            <span class="second">
+            {{else if $index == 2}}
+            <span class="third">  
+            {{else}}
+            <span>
+            {{/if}} 
+                {{$index + 1}}</span>
             <a href="./detail.html?id={{$value.id}}">{{$value.title}}</a>
         </li>
         {{/each}}
@@ -231,11 +232,12 @@
 
     <script>
         $.get('./getArticles', { flag: 'click', num: 7 }, function (res) {
+            console.log(res)
             var str = template('hot', {
-                arr: res.add
+                arr1: res.data
             })
-            $('.content_list').html(str);
-        })
+            $('.content_list').eq(0).html(str);
+        },'json')
     </script>
 
 
@@ -247,11 +249,11 @@
     </script>
 
     <script>
-        $.get('./getArticles', {flag: 'click' , num: 7}, function (res){
-            var str = template ('look', {
+        $.get('./getArticles', { flag: 'click', num: 7 }, function (res) {
+            var str = template('look', {
                 arr: res.data
             });
-            $('.content_list').html(str);
+            $('.content_list').eq(2).html(str);
         })
     </script>
 </body>
